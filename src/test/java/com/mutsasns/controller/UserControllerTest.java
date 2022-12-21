@@ -72,7 +72,7 @@ class UserControllerTest {
     @WithMockUser
     void join_fail() throws Exception{
 
-        when(userService.join(any())).thenThrow(new UserException(ErrorCode.DUPLICATED_USERNAME, ""));
+        when(userService.join(any())).thenThrow(new UserException(ErrorCode.DUPLICATED_USERNAME,""));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .with(csrf())
