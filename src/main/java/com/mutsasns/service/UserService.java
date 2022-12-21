@@ -17,9 +17,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
-    @Value("${jwt.token.secret}")
-    private String secretKey;
-    private long expireTimeMs = 1000 * 60 * 60; //1시간
+//    @Value("${jwt.token.secret}")
+//    private String secretKey;
+//    private long expireTimeMs = 1000 * 60 * 60; //1시간
 
     public UserDto join(UserJoinRequest userJoinRequest){
         userRepository.findByUserName(userJoinRequest.getUserName())
