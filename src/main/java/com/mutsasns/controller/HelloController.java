@@ -1,4 +1,4 @@
-package com.mutsasns.Controller;
+package com.mutsasns.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
