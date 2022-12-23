@@ -1,4 +1,4 @@
-package com.mutsasns.domain;
+package com.mutsasns.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
