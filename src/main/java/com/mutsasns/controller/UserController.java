@@ -1,7 +1,7 @@
 package com.mutsasns.controller;
 
 import com.mutsasns.domain.Response;
-import com.mutsasns.domain.dto.*;
+import com.mutsasns.domain.user.dto.*;
 import com.mutsasns.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
