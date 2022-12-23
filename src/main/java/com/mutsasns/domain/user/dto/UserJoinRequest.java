@@ -1,6 +1,6 @@
-package com.mutsasns.domain.dto;
+package com.mutsasns.domain.user.dto;
 
-import com.mutsasns.domain.User;
+import com.mutsasns.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

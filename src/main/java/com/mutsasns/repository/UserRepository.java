@@ -1,6 +1,6 @@
 package com.mutsasns.repository;
 
-import com.mutsasns.domain.User;
+import com.mutsasns.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

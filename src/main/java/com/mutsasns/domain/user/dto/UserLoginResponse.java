@@ -1,4 +1,4 @@
-package com.mutsasns.domain.dto;
+package com.mutsasns.domain.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserJoinResponse {
-    private Long id;
-    private String userName;
+public class UserLoginResponse {
+    private String jwt;
 }

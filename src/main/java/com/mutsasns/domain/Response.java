@@ -1,6 +1,5 @@
 package com.mutsasns.domain;
 
-import com.mutsasns.exception.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,6 @@ public class Response<T> {
     public static <T> Response<T> error(String resultCode, T result){
         return new Response<>(resultCode, result);
     }
-
     public static <T> Response<T> success(T result){
         return new Response<>("SUCCESS", result);
     }
