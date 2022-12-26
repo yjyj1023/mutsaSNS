@@ -26,21 +26,24 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    //리스트 출력
+    //전체 포스트 리스트 출력
     public PostListResponse findAllList(Pageable pageable){
         Page<Post> posts = postRepository.findAll(pageable);
 
-        List<PostDetailResponse> postRespons = posts.stream()
+        List<PostDetailResponse> postDetailResponses = posts.stream()
                 .map(Post::toResponse)
                 .collect(Collectors.toList());
 
         return PostListResponse.builder()
-                .content(postRespons)
+                .content(postDetailResponses)
                 .pageable(pageable)
                 .build();
     }
 
+    //상세 포스트 조회
     public PostDetailResponse detailPost(Long id){
+
+        //포스트 확인
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 없습니다."));
 
@@ -72,8 +75,6 @@ public class PostService {
                 .message("포스트 등록 완료")
                 .build();
     }
-
-
 
     //포스트 수정
     public PostResponse updatePost(PostRequest postRequest, Long id , String userName){
@@ -114,7 +115,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
 
-        //작성자와 유저가 맞는지 확인
+        //작성자와 로그인한 유저가 맞는지 확인
         if(!user.getId().equals(post.getUser().getId())){
             throw new AppException(ErrorCode.INVALID_PERMISSION, "작성자와 유저가 다릅니다.");
         }
