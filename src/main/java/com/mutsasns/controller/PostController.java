@@ -21,7 +21,8 @@ public class PostController {
 
     @PostMapping
     public Response<PostCreateResponse> create(@RequestBody PostCreateRequest postCreateRequest, Authentication authentication){
-        return Response.success(postService.createPost(postCreateRequest, authentication));
+        String userName = authentication.getName();
+        return Response.success(postService.createPost(postCreateRequest, userName));
     }
 
     @GetMapping

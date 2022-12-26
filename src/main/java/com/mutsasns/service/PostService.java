@@ -32,9 +32,9 @@ public class PostService {
     private String secretKey;
 
     //포스트 작성
-    public PostCreateResponse createPost(PostCreateRequest postCreateRequest, Authentication authentication) {
+    public PostCreateResponse createPost(PostCreateRequest postCreateRequest, String userName) {
 
-        String userName = authentication.getName();
+
 
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
