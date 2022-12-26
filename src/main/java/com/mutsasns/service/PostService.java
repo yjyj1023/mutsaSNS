@@ -30,6 +30,32 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
+    //리스트 출력
+    public PostResponse findAllList(Pageable pageable){
+        Page<Post> posts = postRepository.findAll(pageable);
+        List<PostListResponse> postListResponses = posts.stream()
+                .map(Post::toResponse)
+                .collect(Collectors.toList());
+        return PostResponse.builder()
+                .content(postListResponses)
+                .pageable(pageable)
+                .build();
+    }
+
+    public PostListResponse detailPost(Long id){
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 없습니다."));
+
+        return PostListResponse.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .body(post.getBody())
+                .userName(post.getUser().getUserName())
+                .createdAt(post.getCreatedAt())
+                .lastModifiedAt(post.getLastModifiedAt())
+                .build();
+    }
+
     //포스트 작성
     public PostCreateResponse createPost(PostCreateRequest postCreateRequest, String userName) {
         //유저 확인
@@ -49,17 +75,7 @@ public class PostService {
                 .build();
     }
 
-    //리스트 출력
-    public PostResponse findAllList(Pageable pageable){
-        Page<Post> posts = postRepository.findAll(pageable);
-        List<PostListResponse> postListResponses = posts.stream()
-                .map(Post::toResponse)
-                .collect(Collectors.toList());
-        return PostResponse.builder()
-                .content(postListResponses)
-                .pageable(pageable)
-                .build();
-    }
+
 
     //포스트 수정
     public PostCreateResponse updatePost(PostCreateRequest postCreateRequest,Long id ,String userName){
