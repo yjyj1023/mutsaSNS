@@ -27,6 +27,8 @@ public class SecurityConfig {
                 .antMatchers("/api/v1/users/join", "/api/v1/users/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll() // 모든 get 요청 허용
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()  //그 외 나머지는 인증을 해야하도록
+                .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/**").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
