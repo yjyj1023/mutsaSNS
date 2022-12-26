@@ -29,4 +29,16 @@ public class PostController {
     public Response<PostResponse> list(Pageable pageable){
         return Response.success(postService.findAllList(pageable));
     }
+
+    @PutMapping("/{id}")
+    public Response<PostCreateResponse> update(@RequestBody PostCreateRequest postCreateRequest,@PathVariable Long id, Authentication authentication){
+        String userName = authentication.getName();
+        return Response.success(postService.updatePost(postCreateRequest, id,userName));
+    }
+
+    @DeleteMapping("/{id}")
+    public Response<PostCreateResponse> delete(@PathVariable Long id, Authentication authentication){
+        String userName = authentication.getName();
+        return Response.success(postService.deletePost(id, userName));
+    }
 }
