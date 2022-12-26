@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class PostCreateResponse {
-    private Long postId;
-    private String message;
+public class PostRequest {
+    private String title;
+    private String body;
 }
