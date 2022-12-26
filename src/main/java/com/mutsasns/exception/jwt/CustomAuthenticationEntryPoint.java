@@ -1,6 +1,7 @@
 package com.mutsasns.exception.jwt;
 
 import com.mutsasns.domain.Response;
+import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
 import com.mutsasns.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, AppException {
         String exception = (String) request.getAttribute("exception");
         log.info(exception);
 
@@ -40,7 +41,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             }
         } else if (exception.equals("EXPIRED_TOKEN")) {
             try {
-                setResponse(response, ErrorCode.INVALID_TOKEN, "만료된 토큰입니다.");
+                setResponse(response, ErrorCode.EXPIRED_TOKEN, "만료된 토큰입니다.");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
