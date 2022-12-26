@@ -1,20 +1,14 @@
 package com.mutsasns.domain.post;
 
 import com.mutsasns.domain.Base;
-import com.mutsasns.domain.post.dto.PostCreateResponse;
-import com.mutsasns.domain.post.dto.PostListResponse;
-import com.mutsasns.domain.post.dto.PostResponse;
+import com.mutsasns.domain.post.dto.PostDetailResponse;
 import com.mutsasns.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Builder
@@ -32,8 +26,8 @@ public class Post extends Base {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public PostListResponse toResponse(){
-        return PostListResponse.builder()
+    public PostDetailResponse toResponse(){
+        return PostDetailResponse.builder()
                 .id(this.id)
                 .title(this.title)
                 .body(this.body)

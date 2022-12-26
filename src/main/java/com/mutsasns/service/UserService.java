@@ -1,9 +1,7 @@
 package com.mutsasns.service;
 
 import com.mutsasns.domain.user.User;
-import com.mutsasns.domain.user.dto.UserDto;
-import com.mutsasns.domain.user.dto.UserJoinRequest;
-import com.mutsasns.domain.user.dto.UserLoginRequest;
+import com.mutsasns.domain.user.dto.*;
 import com.mutsasns.exception.ErrorCode;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.repository.UserRepository;
@@ -23,7 +21,7 @@ public class UserService {
     private String secretKey;
     private long expireTimeMs = 1000 * 60 * 60; //1시간
 
-    public UserDto join(UserJoinRequest userJoinRequest){
+    public UserJoinResponse join(UserJoinRequest userJoinRequest){
         userRepository.findByUserName(userJoinRequest.getUserName())
                 .ifPresent(user -> {
                     throw new AppException(ErrorCode.DUPLICATED_USER_NAME,
@@ -32,14 +30,13 @@ public class UserService {
 
         User savedUser = userRepository.save(userJoinRequest.toEntity(encoder.encode(userJoinRequest.getPassword())));
 
-        return UserDto.builder()
-                .id(savedUser.getId())
+        return UserJoinResponse.builder()
+                .userId(savedUser.getId())
                 .userName(savedUser.getUserName())
-                .password(savedUser.getPassword())
                 .build();
     }
 
-    public String login(UserLoginRequest userLoginRequest){
+    public UserLoginResponse login(UserLoginRequest userLoginRequest){
         //userName 있는지 확인
         User user = userRepository.findByUserName(userLoginRequest.getUserName())
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND,
@@ -50,6 +47,8 @@ public class UserService {
             throw new AppException(ErrorCode.INVALID_PASSWORD,"password가 잘못 되었습니다.");
         }
 
-        return JwtUtil.createToken(userLoginRequest.getUserName(),secretKey,expireTimeMs);
+        String token = JwtUtil.createToken(userLoginRequest.getUserName(),secretKey,expireTimeMs);
+
+        return new UserLoginResponse(token);
     }
 }
