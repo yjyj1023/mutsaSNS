@@ -2,7 +2,6 @@ package com.mutsasns.service;
 
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
-import com.mutsasns.domain.post.dto.PostListResponse;
 import com.mutsasns.domain.post.dto.PostRequest;
 import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.user.User;
@@ -13,6 +12,7 @@ import com.mutsasns.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +27,16 @@ public class PostService {
     private final UserRepository userRepository;
 
     //전체 포스트 리스트 출력
-    public PostListResponse findAllList(Pageable pageable) {
+    public Page<PostDetailResponse> findAllList(Pageable pageable) {
         Page<Post> posts = postRepository.findAll(pageable);
 
         List<PostDetailResponse> postDetailResponses = posts.stream()
                 .map(Post::toResponse)
                 .collect(Collectors.toList());
 
-        return PostListResponse.builder()
-                .content(postDetailResponses)
-                .pageable(pageable)
-                .build();
+        return new PageImpl<>(postDetailResponses);
     }
+
 
     //상세 포스트 조회
     public PostDetailResponse detailPost(Long id) {
