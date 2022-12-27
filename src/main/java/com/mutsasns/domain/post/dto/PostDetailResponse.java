@@ -16,5 +16,4 @@ public class PostDetailResponse {
     private String userName;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
-
 }
