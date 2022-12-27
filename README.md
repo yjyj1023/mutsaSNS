@@ -1,7 +1,8 @@
 <div align=center>
 <div>
-<h1> 멋사스네스(MutsaSNS)</h1>
-<h2> 🌈 서비스 소개 🌈 </h2>
+
+# 멋사스네스(MutsaSNS)
+## 🌈 서비스 소개 🌈 </h2>
 
 ### 1. 회원 인증·인가
 모든 회원은 회원가입을 통해 회원이 됩니다.
@@ -26,7 +27,9 @@
 </div>
 
 <div align=center>
-	<h2>📚 기술 스택 📚</h2>
+
+## 📚 기술 스택 📚</h2>
+
 </div>
 
 <div align="center">
@@ -43,7 +46,8 @@
 </div>
 
 <div>
-<h2> ✨ 개발 환경 ✨ </h2>
+
+## ✨ 개발 환경 ✨
 
 에디터 : Intellij Ultimate
 
@@ -64,7 +68,8 @@
 </div>
 
 <div>
-<h2> 🚩 API EndPoint 🚩 </h2>
+
+## 🚩 API EndPoint 🚩
 
 회원가입(Join): POST /api/v1/users/join
 
@@ -83,7 +88,8 @@
 </div>
 
 <div>
-<h2> Swagger 주소 </h2>
+
+## ☁ Swagger 주소 ☁
 
 http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/ 
 
