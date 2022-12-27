@@ -2,12 +2,13 @@ package com.mutsasns.controller;
 
 import com.mutsasns.domain.Response;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
-import com.mutsasns.domain.post.dto.PostListResponse;
 import com.mutsasns.domain.post.dto.PostRequest;
 import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public Response<PostListResponse> list(Pageable pageable) {
+    public Response<Page<PostDetailResponse>> list(@PageableDefault(size = 20) Pageable pageable) {
         return Response.success(postService.findAllList(pageable));
     }
 
