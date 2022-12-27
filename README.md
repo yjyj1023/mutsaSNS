@@ -1,9 +1,16 @@
 
+<div align="center">
 
 # 멋사스네스(MutsaSNS)
+
+</div>
+
 <br>
+<div align="center">
 
 ## 🌈 서비스 소개 🌈
+
+</div>
 
 ### 1. 회원 인증·인가
 
@@ -28,7 +35,11 @@
 
 <br>
 
+<div align="center">
+
 ## 📚 기술 스택 📚
+
+</div>
 
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
@@ -43,7 +54,11 @@
 
 <br>
 
+<div align="center">
+
 ## ✨ 개발 환경 ✨
+
+</div>
 
 에디터 : Intellij Ultimate
 
@@ -63,7 +78,11 @@
 
 <br>
 
+<div align="center">
+
 ## 🚩 API EndPoint 🚩
+
+</div>
 
 회원가입(Join): POST /api/v1/users/join
 
@@ -81,7 +100,11 @@
 
 <br>
 
+<div align="center">
+
 ## ☁ Swagger 주소 ☁
+
+</div>
 
 http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/ 
 
