@@ -1,5 +1,4 @@
 <div align=center>
-<div>
 
 # 멋사스네스(MutsaSNS)
 ## 🌈 서비스 소개 🌈 </h2>
@@ -24,28 +23,21 @@
 
 포스트의 삭제 기능은 글을 쓴 회원만이 권한을 가집니다.
 
-</div>
 
-<div align=center>
 
-## 📚 기술 스택 📚</h2>
+## 📚 기술 스택 📚
 
-</div>
+<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=JSON Web Tokens&logoColor=white" />
+<br>
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat&logo=Amazon AWS&logoColor=white" />
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" />
+<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=white" />
+<img src="https://img.shields.io/badge/Dokcer-2496ED?style=flat&logo=Linux&logoColor=white" />
 
-<div align="center">
-    <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
-	<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
-    <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
-    <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white">
-    <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=JSON Web Tokens&logoColor=white" />
-    <br>
-    <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat&logo=Amazon AWS&logoColor=white" />
-    <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" />
-    <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=white" />
-    <img src="https://img.shields.io/badge/Dokcer-2496ED?style=flat&logo=Linux&logoColor=white" />
-</div>
-
-<div>
 
 ## ✨ 개발 환경 ✨
 
@@ -65,9 +57,6 @@
 
 필수 라이브러리 : SpringBoot Web, MySQL, Spring Data JPA, Lombok, Spring Security
 
-</div>
-
-<div>
 
 ## 🚩 API EndPoint 🚩
 
@@ -85,15 +74,9 @@
 
 상세 포스트: GET /api/v1/posts/{postId}
 
-</div>
-
-<div>
 
 ## ☁ Swagger 주소 ☁
 
 http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/ 
-
-
-</div>
 
 </div>
