@@ -4,6 +4,7 @@ import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.post.dto.PostRequest;
 import com.mutsasns.domain.user.User;
 import com.mutsasns.exception.AppException;
+import com.mutsasns.exception.ErrorCode;
 import com.mutsasns.repository.PostRepository;
 import com.mutsasns.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 class PostServiceTest {
@@ -50,6 +52,8 @@ class PostServiceTest {
 
         //에러없이 조회 성공
         Assertions.assertDoesNotThrow(() -> postService.detailPost(post.getId()));
+
+        assertEquals(user.getUserName(), post.getUser().getUserName());
     }
 
     @Test
@@ -167,9 +171,11 @@ class PostServiceTest {
                 .thenReturn(post);
 
         // 1번 포스트만 등록되어 있는데 123번 포스트를 수정하려고 하면 에러
-        Assertions.assertThrows(AppException.class, () -> {
+        AppException appException = Assertions.assertThrows(AppException.class, () -> {
             postService.updatePost(postRequest, 123l, user.getUserName());
         });
+
+        assertEquals(ErrorCode.POST_NOT_FOUND,appException.getErrorCode());
     }
 
     @Test
@@ -214,9 +220,11 @@ class PostServiceTest {
                 .thenReturn(post);
 
         // 첫번째 유저가 등록한 1번 포스트를 두번째 유저가 수정하려고 하면 에러
-        Assertions.assertThrows(AppException.class, () -> {
+        AppException appException = Assertions.assertThrows(AppException.class, () -> {
             postService.updatePost(postRequest, post.getId(), user2.getUserName());
         });
+
+        assertEquals(ErrorCode.INVALID_PERMISSION,appException.getErrorCode());
     }
 
     @Test
@@ -250,9 +258,11 @@ class PostServiceTest {
                 .thenReturn(post);
 
         // 등록되어 있지 않은 YeonJae123456가 수정하려고 하면 에러
-        Assertions.assertThrows(AppException.class, () -> {
+        AppException appException = Assertions.assertThrows(AppException.class, () -> {
             postService.updatePost(postRequest, post.getId(), "YeonJae123456");
         });
+
+        assertEquals(ErrorCode.USERNAME_NOT_FOUND,appException.getErrorCode());
     }
 
     @Test
@@ -305,9 +315,11 @@ class PostServiceTest {
                 .thenReturn(Optional.of(post));
 
         // 등록되지 않은 YeonJae123456가 삭제하려고 하면 에러
-        Assertions.assertThrows(AppException.class, () -> {
+        AppException appException = Assertions.assertThrows(AppException.class, () -> {
             postService.deletePost(post.getId(), "YeonJae123456");
         });
+
+        assertEquals(ErrorCode.USERNAME_NOT_FOUND ,appException.getErrorCode());
     }
 
     @Test
@@ -333,8 +345,10 @@ class PostServiceTest {
                 .thenReturn(Optional.of(post));
 
         // 존재하지 않는 123번 포스트를 삭제하려고 하면 에러
-        Assertions.assertThrows(AppException.class, () -> {
+        AppException appException = Assertions.assertThrows(AppException.class, () -> {
             postService.deletePost(123l, user.getUserName());
         });
+
+        assertEquals(ErrorCode.POST_NOT_FOUND  ,appException.getErrorCode());
     }
 }
