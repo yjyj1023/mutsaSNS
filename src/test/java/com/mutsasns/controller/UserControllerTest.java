@@ -1,10 +1,7 @@
 package com.mutsasns.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsasns.domain.user.dto.UserJoinRequest;
-import com.mutsasns.domain.user.dto.UserJoinResponse;
-import com.mutsasns.domain.user.dto.UserLoginRequest;
-import com.mutsasns.domain.user.dto.UserLoginResponse;
+import com.mutsasns.domain.user.dto.*;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
 import com.mutsasns.service.UserService;
@@ -20,6 +17,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -51,7 +49,13 @@ class UserControllerTest {
                 .password("qwer1234")
                 .build();
 
-        when(userService.join(any())).thenReturn(new UserJoinResponse(0l, userJoinRequest.getUserName()));
+        UserDto userDto = UserDto.builder()
+                .id(0l)
+                .userName("YeonJae")
+                .password("qwer1234")
+                .build();
+
+        when(userService.join(any())).thenReturn(userDto);
 
         mockMvc.perform(post("/api/v1/users/join")
                         .with(csrf())
