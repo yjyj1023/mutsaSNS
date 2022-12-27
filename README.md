@@ -143,6 +143,8 @@ http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/
 
 ✅ 포스트 작성 / 수정 / 삭제 / 상세 포스트 / 리스트 API 구현
    - 예외처리에 중점을 두어 구현했습니다.
+   - Post 엔티티에 Base 엔티티를 상속받아 createdAt과 lastModifiedAt을 구현했습니다.
+   - 포스트 리스트가 Page도 리턴할 수 있도록 구현했습니다.
 
 ✅ 커스텀 에러 처리 구현
    - 노션 페이지의 ErrorCode를 참고하여 ErrorCode를 만들었습니다.
