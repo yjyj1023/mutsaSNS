@@ -21,7 +21,7 @@ public class UserService {
     private String secretKey;
     private long expireTimeMs = 1000 * 60 * 60; //1시간
 
-    public UserJoinResponse join(UserJoinRequest userJoinRequest){
+    public UserDto join(UserJoinRequest userJoinRequest){
         userRepository.findByUserName(userJoinRequest.getUserName())
                 .ifPresent(user -> {
                     throw new AppException(ErrorCode.DUPLICATED_USER_NAME,
@@ -30,11 +30,13 @@ public class UserService {
 
         User savedUser = userRepository.save(userJoinRequest.toEntity(encoder.encode(userJoinRequest.getPassword())));
 
-        return UserJoinResponse.builder()
-                .userId(savedUser.getId())
+        return UserDto.builder()
+                .id(savedUser.getId())
                 .userName(savedUser.getUserName())
+                .password(savedUser.getPassword())
                 .build();
     }
+
 
     public UserLoginResponse login(UserLoginRequest userLoginRequest){
         //userName 있는지 확인
