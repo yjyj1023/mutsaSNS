@@ -3,6 +3,8 @@
 
 # 멋사스네스(MutsaSNS)
 
+** 멋사스네스(MutsaSNS) 는 로그인, 글쓰기 기능이 있는 SNS API입니다. **
+
 </div>
 
 <br>
