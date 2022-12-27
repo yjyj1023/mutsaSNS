@@ -23,7 +23,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-
         JSONObject responseJson = new JSONObject();  // result랑 resultCode 들어가는 json
         JSONObject result = new JSONObject(); // result안에 errorCode랑 message 들어가는 json
 
@@ -33,14 +32,13 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             result.put("errorCode", errorResponse.getErrorCode());
             result.put("message", errorResponse.getMessage());
 
-            responseJson.put("resultCode",response1.getResultCode());
-            responseJson.put("result",response1.getResult());
+            responseJson.put("resultCode", response1.getResultCode());
+            responseJson.put("result", response1.getResult());
 
             response.getWriter().println("{ \"resultCode\" : \"" + responseJson.get("resultCode")
-                    + "\", \"result\" : " +  responseJson.get("result") + "}");
+                    + "\", \"result\" : " + responseJson.get("result") + "}");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

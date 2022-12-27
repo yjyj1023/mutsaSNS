@@ -1,7 +1,10 @@
 package com.mutsasns.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsasns.domain.user.dto.*;
+import com.mutsasns.domain.user.dto.UserDto;
+import com.mutsasns.domain.user.dto.UserJoinRequest;
+import com.mutsasns.domain.user.dto.UserLoginRequest;
+import com.mutsasns.domain.user.dto.UserLoginResponse;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
 import com.mutsasns.service.UserService;
@@ -17,7 +20,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -155,6 +157,5 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.resultCode").value("ERROR"))
                 .andExpect(jsonPath("$.result.errorCode").exists())
                 .andExpect(jsonPath("$.result.message").exists());
-
     }
 }

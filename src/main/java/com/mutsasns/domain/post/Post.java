@@ -26,7 +26,7 @@ public class Post extends Base {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public PostDetailResponse toResponse(){
+    public PostDetailResponse toResponse() {
         return PostDetailResponse.builder()
                 .id(this.id)
                 .title(this.title)

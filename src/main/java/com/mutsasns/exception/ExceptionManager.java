@@ -12,20 +12,20 @@ import java.sql.SQLException;
 public class ExceptionManager {
 
     @ExceptionHandler(AppException.class)
-    public ResponseEntity<?> AppExceptionHandler(AppException e){
+    public ResponseEntity<?> AppExceptionHandler(AppException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getErrorCode(), e.getMessage());
         return ResponseEntity.status(e.getErrorCode().getStatus())
                 .body(Response.error("ERROR", errorResponse));
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> runtimeExceptionHandler(RuntimeException e){
+    public ResponseEntity<?> runtimeExceptionHandler(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Response.error("ERROR",e.getMessage()));
+                .body(Response.error("ERROR", e.getMessage()));
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<?> sqlExceptionHandler(SQLException e){
+    public ResponseEntity<?> sqlExceptionHandler(SQLException e) {
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.DATABASE_ERROR, e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Response.error("ERROR", errorResponse));

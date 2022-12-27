@@ -3,7 +3,6 @@ package com.mutsasns.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
-import com.mutsasns.domain.post.dto.PostListResponse;
 import com.mutsasns.domain.post.dto.PostRequest;
 import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.user.User;
@@ -19,12 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.awt.print.Pageable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -65,11 +58,11 @@ class PostControllerTest {
                 .build();
 
         when(postService.detailPost(any())).thenReturn(PostDetailResponse.builder()
-                        .id(post.getId())
-                        .title(post.getTitle())
-                        .body(post.getBody())
-                        .userName(post.getUser().getUserName())
-                        .build());
+                .id(post.getId())
+                .title(post.getTitle())
+                .body(post.getBody())
+                .userName(post.getUser().getUserName())
+                .build());
 
         mockMvc.perform(get("/api/v1/posts/1")
                         .with(csrf())
@@ -82,7 +75,6 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.result.title").exists())
                 .andExpect(jsonPath("$.result.body").exists())
                 .andExpect(jsonPath("$.result.userName").exists());
-
     }
 
     @Test

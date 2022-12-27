@@ -44,7 +44,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
             try {
                 setResponse(response, ErrorCode.INVALID_PERMISSION, "");
             } catch (JSONException e) {
@@ -66,11 +66,11 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         Response response1 = new Response("ERROR", result);
 
-        responseJson.put("resultCode",response1.getResultCode());
-        responseJson.put("result",response1.getResult());
+        responseJson.put("resultCode", response1.getResultCode());
+        responseJson.put("result", response1.getResult());
 
         response.getWriter().println("{ \"resultCode\" : \"" + responseJson.get("resultCode")
-                + "\", \"result\" : " +  responseJson.get("result") + "}");
+                + "\", \"result\" : " + responseJson.get("result") + "}");
     }
 }
 

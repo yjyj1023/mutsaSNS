@@ -123,7 +123,6 @@ class PostServiceTest {
                 .user(user)
                 .build();
 
-
         Mockito.when(userRepository.findByUserName(any()))
                 .thenReturn(Optional.of(user));
 
@@ -157,7 +156,6 @@ class PostServiceTest {
                 .body("body")
                 .user(user)
                 .build();
-
 
         Mockito.when(userRepository.findByUserName(any()))
                 .thenReturn(Optional.of(user));
@@ -274,7 +272,6 @@ class PostServiceTest {
                 .user(user)
                 .build();
 
-
         Mockito.when(userRepository.findByUserName(any()))
                 .thenReturn(Optional.of(user));
 
@@ -300,7 +297,6 @@ class PostServiceTest {
                 .body("body")
                 .user(user)
                 .build();
-
 
         Mockito.when(userRepository.findByUserName(user.getUserName()))
                 .thenReturn(Optional.of(user));
@@ -329,7 +325,6 @@ class PostServiceTest {
                 .body("body")
                 .user(user)
                 .build();
-
 
         Mockito.when(userRepository.findByUserName(any()))
                 .thenReturn(Optional.of(user));
