@@ -39,8 +39,6 @@
 
 ## 📚 기술 스택 📚
 
-
-
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
@@ -81,6 +79,14 @@
 
 <div align="center">
 
+## 💼 아키텍처 💼
+
+</div>
+
+![img_2.png](img_2.png)
+
+<div align="center">
+
 ## 🚩 API EndPoint 🚩
 
 </div>
@@ -108,4 +114,26 @@
 </div>
 
 http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/ 
+
+<div align="center">
+
+## 🍀 1주차 체크리스트 🍀
+
+</div>
+
+✅ 인증 / 인가 필터 구현
+
+✅ 회원가입 / 로그인 API 구현
+
+✅ 포스트 작성 / 수정 / 삭제 / 상세 포스트 / 리스트 API 구현
+
+✅ 커스텀 에러 처리 구현
+
+✅ 회원가입 / 로그인 테스트 코드 작성
+
+✅ 포스트 작성 / 수정 / 삭제 / 상세 포스트 / 리스트 테스트 코드 작성
+
+✅ Swagger를 이용해 API 문서 자동화
+
+✅ Gitlab CI & Crontab CD를 이용해 AWS EC2 서버에 1분마다 자동으로 배포 되도록 구현
 
