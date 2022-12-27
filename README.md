@@ -23,8 +23,6 @@
 ### 2. 글쓰기
 - 포스트를 쓰려면 회원가입 후 로그인(Token 받기)을 해야 합니다.
 
-- 포스트의 길이는 총 300자 이상을 넘을 수 없습니다.
-
 - 포스트의 한 페이지는 20개씩 보이고 총 몇 개의 페이지인지 표시가 됩니다.
 
 - 로그인 하지 않아도 글 목록을 조회 할 수 있습니다.
@@ -40,7 +38,6 @@
 ## 📚 기술 스택 📚
 
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
 <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white">
 <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=JSON Web Tokens&logoColor=white" />
@@ -84,6 +81,14 @@
 </div>
 
 ![img_2.png](img_2.png)
+
+<div align="center">
+
+## 📃 ERD 📃
+
+</div>
+
+![img.png](img.png)
 
 <div align="center">
 
