@@ -78,17 +78,23 @@
 
 ## 💼 아키텍처 💼
 
+![img_2.png](img_2.png)
+
 </div>
 
-![img_2.png](img_2.png)
+<br>
 
 <div align="center">
 
 ## 📃 ERD 📃
 
-</div>
+### 1주차
 
 ![img.png](img.png)
+
+</div>
+
+<br>
 
 <div align="center">
 
