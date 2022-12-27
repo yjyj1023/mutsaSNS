@@ -1,10 +1,10 @@
 package com.mutsasns.service;
 
 import com.mutsasns.domain.post.Post;
-import com.mutsasns.domain.post.dto.PostRequest;
-import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
 import com.mutsasns.domain.post.dto.PostListResponse;
+import com.mutsasns.domain.post.dto.PostRequest;
+import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.user.User;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
@@ -27,7 +27,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     //전체 포스트 리스트 출력
-    public PostListResponse findAllList(Pageable pageable){
+    public PostListResponse findAllList(Pageable pageable) {
         Page<Post> posts = postRepository.findAll(pageable);
 
         List<PostDetailResponse> postDetailResponses = posts.stream()
@@ -41,7 +41,7 @@ public class PostService {
     }
 
     //상세 포스트 조회
-    public PostDetailResponse detailPost(Long id){
+    public PostDetailResponse detailPost(Long id) {
 
         //포스트 확인
         Post post = postRepository.findById(id)
@@ -77,7 +77,7 @@ public class PostService {
     }
 
     //포스트 수정
-    public PostResponse updatePost(PostRequest postRequest, Long id , String userName){
+    public PostResponse updatePost(PostRequest postRequest, Long id, String userName) {
         //유저 확인
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
@@ -87,7 +87,7 @@ public class PostService {
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
 
         //작성자와 로그인한 유저가 맞는지 확인
-        if(!user.getId().equals(post.getUser().getId())){
+        if (!user.getId().equals(post.getUser().getId())) {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "작성자와 유저가 다릅니다.");
         }
 
@@ -106,7 +106,7 @@ public class PostService {
     }
 
     //포스트 삭제
-    public PostResponse deletePost(Long id, String userName){
+    public PostResponse deletePost(Long id, String userName) {
         //유저 확인
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
@@ -116,7 +116,7 @@ public class PostService {
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
 
         //작성자와 로그인한 유저가 맞는지 확인
-        if(!user.getId().equals(post.getUser().getId())){
+        if (!user.getId().equals(post.getUser().getId())) {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "작성자와 유저가 다릅니다.");
         }
         postRepository.deleteById(id);
