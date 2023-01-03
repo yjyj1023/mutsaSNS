@@ -2,7 +2,7 @@ package com.mutsasns.exception.jwt;
 
 import com.mutsasns.domain.Response;
 import com.mutsasns.exception.ErrorCode;
-import com.mutsasns.exception.ErrorResponse;
+import com.mutsasns.domain.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
