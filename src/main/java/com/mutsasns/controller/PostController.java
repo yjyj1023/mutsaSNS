@@ -20,7 +20,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public Response<Page<PostDetailResponse>> list(@PageableDefault(size = 20) Pageable pageable) {
+    public Response<Page<PostDetailResponse>> list(@PageableDefault(size = 20, sort = "createdAt") Pageable pageable) {
         return Response.success(postService.findAllList(pageable));
     }
 
