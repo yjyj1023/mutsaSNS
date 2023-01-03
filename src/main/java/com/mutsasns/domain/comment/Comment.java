@@ -1,11 +1,12 @@
 package com.mutsasns.domain.comment;
 
 import com.mutsasns.domain.Base;
-import com.mutsasns.domain.comment.dto.CommentDetailResponse;
+import com.mutsasns.domain.comment.dto.CommentResponse;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Builder
 public class Comment extends Base {
     @Id
@@ -29,8 +31,8 @@ public class Comment extends Base {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public CommentDetailResponse toResponse(){
-        return CommentDetailResponse.builder()
+    public CommentResponse toResponse(){
+        return CommentResponse.builder()
                 .id(this.id)
                 .comment(this.comment)
                 .userName(this.user.getUserName())
