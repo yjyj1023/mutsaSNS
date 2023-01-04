@@ -52,4 +52,15 @@ public class PostController {
         String userName = authentication.getName();
         return Response.success(postService.myFeed(userName, pageable));
     }
+
+    @PostMapping("/{postId}/likes")
+    public Response<String> likePush(@PathVariable Long postId, Authentication authentication){
+        String userName = authentication.getName();
+        return Response.success(postService.likePush(postId, userName));
+    }
+
+    @GetMapping("/{postId}/likes")
+    public Response<Integer> likeCount(@PathVariable Long postId){
+        return Response.success(postService.likeCount(postId));
+    }
 }
