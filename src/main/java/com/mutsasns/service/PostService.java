@@ -1,5 +1,6 @@
 package com.mutsasns.service;
 
+import com.mutsasns.domain.likes.Likes;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
 import com.mutsasns.domain.post.dto.PostRequest;
@@ -7,6 +8,7 @@ import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.user.User;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
+import com.mutsasns.repository.LikeRepository;
 import com.mutsasns.repository.PostRepository;
 import com.mutsasns.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
     //전체 포스트 리스트 출력
     public Page<PostDetailResponse> findAllList(Pageable pageable) {
@@ -136,6 +139,45 @@ public class PostService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(postDetailResponses);
+    }
+
+    //좋아요 누르기
+    public String likePush(Long postId, String userName){
+        //유저 확인
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
+
+        //포스트 확인
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
+
+        System.out.println(likeRepository.countByUser(user));
+
+        //이전에 좋아요 눌렀는지 확인
+        if(likeRepository.countByUser(user)>=1){
+            throw new AppException(ErrorCode.DUPLICATED_LIKE, "좋아요는 두 번 누를 수 없습니다.");
+        }
+
+        Likes likes = Likes.builder()
+                .isLike(true)
+                .post(post)
+                .user(user)
+                .build();
+
+        likeRepository.save(likes);
+
+        return "좋아요를 눌렀습니다.";
+    }
+
+    //좋아요 개수
+    public int likeCount(Long postId){
+        //포스트 확인
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
+
+        List<Likes> likes = likeRepository.findAllByPost(post);
+
+        return likes.size();
     }
 }
 
