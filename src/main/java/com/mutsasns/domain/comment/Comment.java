@@ -4,10 +4,7 @@ import com.mutsasns.domain.Base;
 import com.mutsasns.domain.comment.dto.CommentResponse;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 

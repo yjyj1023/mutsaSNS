@@ -1,6 +1,7 @@
 package com.mutsasns.controller;
 
 import com.mutsasns.domain.Response;
+import com.mutsasns.domain.comment.dto.CommentDeleteResponse;
 import com.mutsasns.domain.comment.dto.CommentRequest;
 import com.mutsasns.domain.comment.dto.CommentResponse;
 import com.mutsasns.service.CommentService;
@@ -19,21 +20,25 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/posts/{postId}/comments")
-    public Response<Page<CommentResponse>> list(@PathVariable Long postId, @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
-        return Response.success(commentService.list(postId, pageable));
+    public Response<Page<CommentResponse>> listComment(@PathVariable Long postId, @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
+        return Response.success(commentService.listComment(postId, pageable));
     }
 
     @PostMapping("/posts/{postId}/comments")
-    public Response<CommentResponse> create(@PathVariable Long postId, @RequestBody CommentRequest commentRequest, Authentication authentication) {
+    public Response<CommentResponse> createComment(@PathVariable Long postId, @RequestBody CommentRequest commentRequest, Authentication authentication) {
         String userName = authentication.getName();
-        return Response.success(commentService.create(postId, commentRequest, userName));
+        return Response.success(commentService.createComment(postId, commentRequest, userName));
     }
 
-//    public Response<> update() {
-//
-//    }
-//
-//    public Response<> delete() {s
-//
-//    }
+    @PutMapping("/posts/{postId}/comments/{id}")
+    public Response<CommentResponse> updateComment(@PathVariable Long postId, @PathVariable Long id, @RequestBody CommentRequest commentRequest, Authentication authentication) {
+        String userName = authentication.getName();
+        return Response.success(commentService.updateComment(postId, id, commentRequest, userName));
+    }
+
+    @DeleteMapping("/posts/{postId}/comments/{id}")
+    public Response<CommentDeleteResponse> delete(@PathVariable Long postId, @PathVariable Long id, Authentication authentication) {
+        String userName = authentication.getName();
+        return Response.success(commentService.deleteComment(postId, id, userName));
+    }
 }

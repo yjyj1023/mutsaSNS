@@ -74,7 +74,7 @@ class PostServiceTest {
                 .thenReturn(Optional.of(user));
 
         Mockito.when(postRepository.save(any()))
-                .thenReturn(new Post(1l, "title1", "body1", user));
+                .thenReturn(new Post(1L, "title1", "body1", user));
 
         //에러 없이 등록 성공
         Assertions.assertDoesNotThrow(() -> postService.createPost(postRequest, user.getUserName()));
