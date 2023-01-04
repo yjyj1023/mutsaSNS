@@ -123,5 +123,19 @@ public class PostService {
                 .message("포스트 삭제 완료")
                 .build();
     }
+    //마이피드 조회
+    public Page<PostDetailResponse> myFeed(String userName, Pageable pageable){
+        //유저 확인
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
+
+        Page<Post> posts = postRepository.findAllByUser(user, pageable);
+
+        List<PostDetailResponse> postDetailResponses = posts.stream()
+                .map(Post::toResponse)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(postDetailResponses);
+    }
 }
 
