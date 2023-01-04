@@ -21,7 +21,6 @@ public class UserController {
         return Response.success(new UserJoinResponse(userDto.getId(), userDto.getUserName()));
     }
 
-
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         return Response.success(new UserLoginResponse(userService.login(userLoginRequest).getJwt()));

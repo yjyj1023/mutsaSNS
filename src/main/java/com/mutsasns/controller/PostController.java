@@ -46,4 +46,10 @@ public class PostController {
         String userName = authentication.getName();
         return Response.success(postService.deletePost(id, userName));
     }
+
+    @GetMapping("/my")
+    public Response<Page<PostDetailResponse>> myFeed(Authentication authentication, Pageable pageable){
+        String userName = authentication.getName();
+        return Response.success(postService.myFeed(userName, pageable));
+    }
 }
