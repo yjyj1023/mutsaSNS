@@ -90,19 +90,9 @@ public class CommentService {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "작성자와 유저가 다릅니다.");
         }
 
-        Comment verifiedComment = Comment.builder()
-                .id(comment.getId())
-                .comment(commentRequest.getComment())
-                .user(user)
-                .post(post)
-                .build();
+        comment.setComment(commentRequest.getComment());
 
-        System.out.println(comment.getCreatedAt());
-
-        Comment savedComment = commentRepository.saveAndFlush(verifiedComment);
-
-        System.out.println(savedComment.getCreatedAt());
-        System.out.println(comment.getCreatedAt());
+        Comment savedComment = commentRepository.saveAndFlush(comment);
 
         return CommentResponse.builder()
                 .id(savedComment.getId())
