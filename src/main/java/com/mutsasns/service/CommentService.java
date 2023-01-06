@@ -97,7 +97,7 @@ public class CommentService {
                 .comment(savedComment.getComment())
                 .userName(savedComment.getUser().getUserName())
                 .postId(savedComment.getPost().getId())
-                .createdAt(comment.getCreatedAt())
+                .createdAt(savedComment.getCreatedAt())
                 .lastModifiedAt(savedComment.getLastModifiedAt())
                 .build();
     }
