@@ -1,5 +1,6 @@
 package com.mutsasns.domain.likes;
 
+import com.mutsasns.domain.Base;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -14,11 +15,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Likes {
+public class Likes extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean isLike;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
