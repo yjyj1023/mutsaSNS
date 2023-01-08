@@ -159,7 +159,6 @@ public class PostService {
         }
 
         Likes likes = Likes.builder()
-                .isLike(true)
                 .post(post)
                 .user(user)
                 .build();

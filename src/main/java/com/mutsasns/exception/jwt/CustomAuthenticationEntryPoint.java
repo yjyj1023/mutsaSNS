@@ -73,4 +73,3 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                 + "\", \"result\" : " + responseJson.get("result") + "}");
     }
 }
-
