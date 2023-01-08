@@ -88,6 +88,11 @@ public class CommentService {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "작성자와 유저가 다릅니다.");
         }
 
+        //댓글의 postId와 주소의 postId 비교
+        if (comment.getPost().getId() != postId) {
+            throw new AppException(ErrorCode.POST_NOT_FOUND, "게시글이 다릅니다.");
+        }
+
         comment.setComment(commentRequest.getComment());
 
         Comment savedComment = commentRepository.saveAndFlush(comment);
@@ -102,7 +107,7 @@ public class CommentService {
                 .build();
     }
 
-    public CommentDeleteResponse deleteComment(Long postId, Long id, String userName){
+    public CommentDeleteResponse deleteComment(Long postId, Long id, String userName) {
         //유저 확인
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
@@ -114,6 +119,11 @@ public class CommentService {
         //댓글 확인
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.COMMENT_NOT_FOUND, "해당 댓글이 존재하지 않습니다."));
+
+        //댓글의 postId와 주소의 postId 비교
+        if (comment.getPost().getId() != postId) {
+            throw new AppException(ErrorCode.POST_NOT_FOUND, "게시글이 다릅니다.");
+        }
 
         commentRepository.deleteById(comment.getId());
 
