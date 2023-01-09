@@ -1,5 +1,6 @@
 package com.mutsasns.service;
 
+import com.mutsasns.domain.alarm.Alarm;
 import com.mutsasns.domain.comment.Comment;
 import com.mutsasns.domain.comment.dto.CommentDeleteResponse;
 import com.mutsasns.domain.comment.dto.CommentRequest;
@@ -8,6 +9,7 @@ import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.user.User;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
+import com.mutsasns.repository.AlarmRepository;
 import com.mutsasns.repository.CommentRepository;
 import com.mutsasns.repository.PostRepository;
 import com.mutsasns.repository.UserRepository;
@@ -28,6 +30,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final AlarmRepository alarmRepository;
 
     public Page<CommentResponse> listComment(Long postId, Pageable pageable) {
         Post post = postRepository.findById(postId)
@@ -58,6 +61,16 @@ public class CommentService {
                 .post(post)
                 .build();
 
+        //new comment 알람 등록
+        Alarm alarm = Alarm.builder()
+                .alarmType("NEW_COMMENT_ON_POST")
+                .fromUserId(user.getId())
+                .targetId(postId)
+                .user(user)
+                .text("new comment!")
+                .build();
+
+        alarmRepository.saveAndFlush(alarm);
         Comment savedComment = commentRepository.save(comment);
 
         return CommentResponse.builder()
