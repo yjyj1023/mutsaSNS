@@ -1,5 +1,6 @@
 package com.mutsasns.service;
 
+import com.mutsasns.domain.alarm.Alarm;
 import com.mutsasns.domain.likes.Likes;
 import com.mutsasns.domain.post.Post;
 import com.mutsasns.domain.post.dto.PostDetailResponse;
@@ -8,6 +9,7 @@ import com.mutsasns.domain.post.dto.PostResponse;
 import com.mutsasns.domain.user.User;
 import com.mutsasns.exception.AppException;
 import com.mutsasns.exception.ErrorCode;
+import com.mutsasns.repository.AlarmRepository;
 import com.mutsasns.repository.LikeRepository;
 import com.mutsasns.repository.PostRepository;
 import com.mutsasns.repository.UserRepository;
@@ -28,6 +30,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+    private final AlarmRepository alarmRepository;
 
     //전체 포스트 리스트 출력
     public Page<PostDetailResponse> findAllList(Pageable pageable) {
@@ -126,8 +129,9 @@ public class PostService {
                 .message("포스트 삭제 완료")
                 .build();
     }
+
     //마이피드 조회
-    public Page<PostDetailResponse> myFeed(String userName, Pageable pageable){
+    public Page<PostDetailResponse> myFeed(String userName, Pageable pageable) {
         //유저 확인
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
@@ -142,7 +146,7 @@ public class PostService {
     }
 
     //좋아요 누르기
-    public String likePush(Long postId, String userName){
+    public String likePush(Long postId, String userName) {
         //유저 확인
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, String.format("%s user가 없습니다.", userName)));
@@ -154,7 +158,7 @@ public class PostService {
         System.out.println(likeRepository.countByUser(user));
 
         //이전에 좋아요 눌렀는지 확인
-        if(likeRepository.countByUser(user)>=1){
+        if (likeRepository.countByUser(user) >= 1) {
             throw new AppException(ErrorCode.DUPLICATED_LIKE, "좋아요는 두 번 누를 수 없습니다.");
         }
 
@@ -165,11 +169,22 @@ public class PostService {
 
         likeRepository.save(likes);
 
+        //new comment 알람 등록
+        Alarm alarm = Alarm.builder()
+                .alarmType("NEW_LIKE_ON_POST")
+                .fromUserId(user.getId())
+                .targetId(postId)
+                .user(user)
+                .text("new like!")
+                .build();
+
+        alarmRepository.save(alarm);
+
         return "좋아요를 눌렀습니다.";
     }
 
     //좋아요 개수
-    public int likeCount(Long postId){
+    public int likeCount(Long postId) {
         //포스트 확인
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 존재하지 않습니다."));
