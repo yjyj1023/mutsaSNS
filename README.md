@@ -2,7 +2,7 @@
 
 # 멋사스네스(MutsaSNS)
 
-**멋사스네스(MutsaSNS) 는 로그인, 글쓰기 기능이 있는 SNS API입니다.**
+**멋사스네스(MutsaSNS) 는 로그인, 글쓰기, 좋아요, 알람 기능이 있는 SNS API입니다.**
 </div>
 
 <br>
@@ -30,6 +30,21 @@
 - 수정 기능은 글을 쓴 회원만이 권한을 가집니다.
 
 - 포스트의 삭제 기능은 글을 쓴 회원만이 권한을 가집니다.
+
+### 3. 피드
+- 로그인 한 회원은 자신이 작성한 글 목록을 볼 수 있습니다.
+
+### 4. 댓글
+- 댓글은 회원만이 권한을 가집니다.
+- 글의 길이는 총 100자 이상을 넘을 수 없습니다.
+- 회원은 다수의 댓글을 달 수 있습니다.
+
+### 5. 좋아요
+- 좋아요는 회원만 권한을 가집니다.
+
+### 6. 알람
+- 알림은 회원이 자신이 쓴 글에 대해 다른회원의 댓글을 올리거나 좋아요시 받는 기능입니다.
+- 알림 목록에서 자신이 쓴 글에 달린 댓글과 좋아요를 확인할 수 있습니다.
 
 <br>
 
@@ -88,9 +103,7 @@
 
 ## 📃 ERD 📃
 
-### 1주차
-
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 </div>
 
@@ -116,6 +129,22 @@
 
 - 상세 포스트: GET /api/v1/posts/{postId}
 
+- 댓글 조회: GET /api/v1/posts/{postId}/comments[?page=0]
+
+- 댓글 작성: POST /api/v1/posts/{postsId}/comments
+
+- 댓글 수정: PUT /api/v1/posts/{postId}/comments/{id}
+
+- 댓글 삭제: DELETE /api/v1/posts/{postsId}/comments/{id}
+
+- 좋아요 누르기: POST /api/v1/posts/{postId}/likes
+
+- 좋아요 개수: GET /api/v1/posts/{postsId}/likes
+
+- 마이 피드 조회: GET /api/v1/posts/my
+
+- 알람 리스트: GET /api/v1/alarms
+
 <br>
 
 <div align="center">
@@ -130,7 +159,7 @@ http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/
 
 <div align="center">
 
-## 🍀 1주차 체크리스트 🍀
+## 🍀 체크리스트 🍀
 
 </div>
 
@@ -161,3 +190,10 @@ http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/
 ✅ Gitlab CI & Crontab CD를 이용해 AWS EC2 서버에 1분마다 자동으로 배포 되도록 구현
    - 강사님 블로그를 참고해 CI/CD 스크립트를 작성했습니다.
 
+✅ 댓글 / 좋아요 / 마이피드 / 알람 API 구현
+- 예외처리에 중점을 두어 구현했습니다.
+- pagable을 DTO에서 변환할 수 있도록 구현했습니다.
+- page의 size가 20이 되도록 구현했습니다.
+
+✅ 댓글 작성 / 수정 / 삭제 / 리스트 테스트 코드 작성
+- 위에서 구현한 기능을 모두 테스트하는것을 중점적으로 작성했습니다.
