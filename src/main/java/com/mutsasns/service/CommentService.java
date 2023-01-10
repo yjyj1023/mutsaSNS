@@ -38,11 +38,7 @@ public class CommentService {
 
         Page<Comment> comments = commentRepository.findCommentsByPost(pageable, post);
 
-        List<CommentResponse> commentResponses = comments.stream()
-                .map(Comment::toResponse)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(commentResponses);
+        return CommentResponse.toPaging(comments);
     }
 
     public CommentResponse createComment(Long postId, CommentRequest commentRequest, String userName) {
