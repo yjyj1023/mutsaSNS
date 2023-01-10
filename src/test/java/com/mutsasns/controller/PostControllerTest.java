@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -387,6 +388,85 @@ class PostControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(postRequest)))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.resultCode").value("ERROR"))
+                .andExpect(jsonPath("$.result.errorCode").exists())
+                .andExpect(jsonPath("$.result.message").exists());
+    }
+
+    @Test
+    @DisplayName("마이피드 조회 성공")
+    @WithMockUser
+    void myFeed_success() throws Exception {
+
+        when(postService.myFeed(any(), any())).thenReturn(Page.empty());
+
+        mockMvc.perform(get("/api/v1/posts/my")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.resultCode").value("SUCCESS"))
+                .andExpect(jsonPath("$.result").exists())
+                .andExpect(jsonPath("$.result.content").exists())
+                .andExpect(jsonPath("$.result.pageable").exists());
+    }
+
+    @Test
+    @DisplayName("마이피드 조회 실패 - 인증 실패")
+    @WithAnonymousUser
+    void myFeed_fail() throws Exception {
+
+        when(postService.myFeed(any(), any())).thenReturn(Page.empty());
+
+        mockMvc.perform(get("/api/v1/posts/my")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("좋아요 누르기 성공")
+    @WithMockUser
+    void likePush_success() throws Exception {
+
+        when(postService.likePush(any(), any())).thenReturn("좋아요를 눌렀습니다.");
+
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.resultCode").value("SUCCESS"))
+                .andExpect(jsonPath("$.result").exists());
+    }
+
+    @Test
+    @DisplayName("좋아요 누르기 실패(1) - 로그인 하지 않은 경우")
+    @WithAnonymousUser
+    void likePush_fail_1() throws Exception {
+
+        when(postService.likePush(any(), any())).thenReturn("좋아요를 눌렀습니다.");
+
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("좋아요 누르기 실패(2) - 해당 Post가 없는 경우")
+    @WithMockUser
+    void likePush_fail_2() throws Exception {
+
+        when(postService.likePush(any(), any())).thenThrow(new AppException(ErrorCode.POST_NOT_FOUND, "해당 포스트가 없습니다."));
+
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.resultCode").value("ERROR"))
