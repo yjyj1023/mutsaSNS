@@ -138,11 +138,7 @@ public class PostService {
 
         Page<Post> posts = postRepository.findAllByUser(user, pageable);
 
-        List<PostDetailResponse> postDetailResponses = posts.stream()
-                .map(Post::toResponse)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(postDetailResponses);
+        return PostDetailResponse.toPaging(posts);
     }
 
     //좋아요 누르기
