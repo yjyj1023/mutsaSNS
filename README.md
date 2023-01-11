@@ -153,7 +153,7 @@
 
 </div>
 
-http://ec2-54-180-25-165.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/ 
+http://ec2-3-34-99-246.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/
 
 <br>
 
